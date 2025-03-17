@@ -19,7 +19,7 @@ public class PriceResponse {
     private Long productId;
 
     @JsonProperty("brand_id")
-    private Long brandId;
+    private Integer brandId;
 
     @JsonProperty("price_list")
     private Integer priceList;

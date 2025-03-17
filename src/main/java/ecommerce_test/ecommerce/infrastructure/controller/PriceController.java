@@ -31,5 +31,4 @@ public class PriceController {
         final PriceDTO priceDTO = priceService.getPriceFromParams(priceDate, productId, brandId);
         return new ResponseEntity<>(mapper.priceDTOToPriceResponse(priceDTO), HttpStatus.OK);
     }
-
 }

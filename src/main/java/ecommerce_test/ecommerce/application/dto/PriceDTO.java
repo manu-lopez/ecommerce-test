@@ -16,7 +16,7 @@ public class PriceDTO {
 
     private Long productId;
 
-    private Long brandId;
+    private Integer brandId;
 
     private Integer priceList;
 
