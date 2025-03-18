@@ -1,4 +1,4 @@
-package ecommerce_test.ecommerce.domain.entity;
+package ecommerce_test.ecommerce.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="PRICES")
+@Table(name = "PRICES")
 @Getter
 @Setter
 public class PriceEntity {
