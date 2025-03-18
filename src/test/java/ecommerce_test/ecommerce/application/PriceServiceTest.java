@@ -34,38 +34,35 @@ public class PriceServiceTest {
     @Mock
     private PriceApplicationMapper priceMapper;
 
+    private final LocalDateTime TEST_DATE = LocalDateTime.of(2023, 6, 14, 10, 0, 0);
+    private final Long PRODUCT_ID = 35455L;
+    private final Integer BRAND_ID = 1;
+
     @Test
     public void givenGetPriceFromParams_whenListWithData_thenReturnPriceDTO() {
-        LocalDateTime priceDate = LocalDateTime.of(2020, 6, 14, 10, 0, 0);
-        Long productId = 35455L;
-        Integer brandId = 1;
-
         List<PriceDO> priceDOList = new ArrayList<>();
         priceDOList.add(priceDOFactory());
         PriceDTO expectedDTO = priceDTOFactory();
 
-        when(this.priceRepository.getPriceListByParams(priceDate, productId, brandId)).thenReturn(priceDOList);
+        when(this.priceRepository.getPriceListByParams(TEST_DATE, PRODUCT_ID, BRAND_ID)).thenReturn(priceDOList);
         when(this.priceMapper.priceDOToPriceDTO(priceDOList.get(0))).thenReturn(expectedDTO);
 
-        PriceDTO result = this.priceService.getPriceFromParams(priceDate, productId, brandId);
+        PriceDTO result = this.priceService.getPriceFromParams(TEST_DATE, PRODUCT_ID, BRAND_ID);
 
-        verify(this.priceRepository, times(1)).getPriceListByParams(priceDate, productId, brandId);
+        verify(this.priceRepository, times(1)).getPriceListByParams(TEST_DATE, PRODUCT_ID, BRAND_ID);
         verify(this.priceMapper, times(1)).priceDOToPriceDTO(priceDOList.get(0));
         assertEquals(expectedDTO, result);
     }
 
     @Test
     void givenGetPriceFromParams_whenListIsEmpty_thenThrowError() {
-        LocalDateTime priceDate = LocalDateTime.of(2020, 6, 14, 10, 0, 0);
-        Long productId = 35455L;
-        Integer brandId = 1;
 
         List<PriceDO> priceDOList = new ArrayList<>();
 
-        when(this.priceRepository.getPriceListByParams(priceDate, productId, brandId)).thenReturn(priceDOList);
+        when(this.priceRepository.getPriceListByParams(TEST_DATE, PRODUCT_ID, BRAND_ID)).thenReturn(priceDOList);
 
-        assertThrows(PriceNotFoundException.class, () -> this.priceService.getPriceFromParams(priceDate, productId, brandId));
-        verify(this.priceRepository, times(1)).getPriceListByParams(priceDate, productId, brandId);
+        assertThrows(PriceNotFoundException.class, () -> this.priceService.getPriceFromParams(TEST_DATE, PRODUCT_ID, BRAND_ID));
+        verify(this.priceRepository, times(1)).getPriceListByParams(TEST_DATE, PRODUCT_ID, BRAND_ID);
         verify(this.priceMapper, times(0)).priceDOToPriceDTO(any(PriceDO.class));
     }
 }
